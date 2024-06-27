@@ -1,13 +1,21 @@
-/* mobile first */
-
-.Brand-buttons {
+/* mobile */
+.brand-buttons {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   flex-wrap: wrap;
+	margin: 2rem 1rem;
 }
 
-.App {
+.brand-button {
+  padding: 0.5rem 1rem;
+	border: 0.1rem solid #ddd;
+	border-radius: 4px;
+	/* background-color: blue; */
+}
+
+
+.app {
   font-family: sans-serif;
   text-align: center;
   display: grid;
@@ -16,20 +24,17 @@
   width: 100%;
 }
 
-.ProductCard-wrapper {
-  /* // display: flex;
-  // align-items: center;
-  // flex-direction: column; */
+.product-card-wrapper {
   display: grid;
   place-content: center;
-  /* gap: 1rem; */
+  gap: 1rem;
   img {
     height: 10rem;
     object-fit: cover;
   }
 }
 
-.ProductCard-button {
+.product-card-button {
   border: 2px solid #ddd;
   border-radius: 4px;
   padding: 2px 0px;
@@ -38,27 +43,26 @@
 
 }
 
-.ProductionCard-button-layout {
+.production-card-button-layout {
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
 }
 
-
 /* desktop */
 @media only screen and (min-width: 1200px) {
-  .App {
+  .app {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .ProductCard-wrapper {
+  .product-card-wrapper {
   }
 
-  .ProductCard-button {
+  .product-card-button {
 
   }
 
-  .ProductionCard-button-layout {
+  .production-card-button-layout {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     width: 100%;

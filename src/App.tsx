@@ -1,45 +1,44 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import './App.css';
 
-interface BrandButtonProps {
+export interface BrandButtonProps {
     onClick: () => void;
     name: string;
 }
 
 export function BrandButton(props: BrandButtonProps) {
     const { onClick, name } = props;
-    return <div onClick={onClick}>{name}</div>;
+    return (
+        <div className="brand-button" onClick={onClick}>
+            {name}
+        </div>
+    );
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function useProducts() {
-    const [products, setProducts] = useState<Product[]>(() => getProducts());
-    const [filteredProducts, setFilteredProducts] =
-        useState<Product[]>(products);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const brands = useMemo(() => getBrands(products), []);
     const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+    const [products, setProducts] = useState<Product[]>(() => getProducts());
 
-    useEffect(() => {
+    const brands = useMemo(() => getBrands(products), [products]);
+    const filteredProducts = useMemo<Product[]>(() => {
         if (selectedBrand == null) {
-            return;
+            return products;
         }
-
-        setFilteredProducts(() =>
-            products.filter(({ brand }) => brand === selectedBrand),
-        );
+        return products.filter(({ brand }) => brand === selectedBrand);
     }, [products, selectedBrand]);
 
     return {
         products,
         setProducts,
         filteredProducts,
-        setFilteredProducts,
         brands,
         selectedBrand,
         setSelectedBrand,
     };
 }
+
+export type UseProducts = ReturnType<typeof useProducts>;
 
 export function Products() {
     const { products, brands, setSelectedBrand, filteredProducts } =
@@ -50,7 +49,7 @@ export function Products() {
 
     return (
         <div>
-            <div className="Brand-buttons">
+            <div className="brand-buttons">
                 {brands.map((brand, index) => (
                     <BrandButton
                         key={index}
@@ -58,8 +57,12 @@ export function Products() {
                         onClick={() => setSelectedBrand(brand)}
                     />
                 ))}
+                <BrandButton
+                    name="All Brands"
+                    onClick={() => setSelectedBrand(null)}
+                />
             </div>
-            <div className="App">
+            <div className="app">
                 {filteredProducts.map((prod) => (
                     <ProductCard product={prod} />
                 ))}
@@ -68,7 +71,7 @@ export function Products() {
     );
 }
 
-interface Product {
+export interface Product {
     id: number;
     title: string;
     description: string;
@@ -82,28 +85,28 @@ interface Product {
     images: string[];
 }
 
-interface ProductCardProps {
+export interface ProductCardProps {
     product: Product;
 }
 
-function ProductCard(props: ProductCardProps) {
+export function ProductCard(props: ProductCardProps) {
     const { product } = props;
     return (
-        <div className="ProductCard-wrapper">
+        <div className="product-card-wrapper">
             <img src={product.thumbnail} alt={product.title} />
             <span>{product.title}</span>
             <span style={{ color: 'red' }}>{product.brand}</span>
             <span>${product.price}</span>
-            <div className="ProductionCard-button-layout">
+            <div className="production-card-button-layout">
                 <div
-                    className="ProductCard-button"
+                    className="product-card-button"
                     onClick={() => alert('Added to Wishlist!')}
                 >
                     {' '}
                     Wishlist
                 </div>
                 <div
-                    className="ProductCard-button"
+                    className="product-card-button"
                     onClick={() => alert('Added to Cart!')}
                 >
                     Add To Cart
@@ -113,7 +116,8 @@ function ProductCard(props: ProductCardProps) {
     );
 }
 
-function getBrands(products: Product[]): string[] {
+// eslint-disable-next-line react-refresh/only-export-components
+export function getBrands(products: Product[]): string[] {
     const brands = products.reduce((accum, product) => {
         accum.add(product.brand);
         return accum;
@@ -121,7 +125,8 @@ function getBrands(products: Product[]): string[] {
     return [...brands];
 }
 
-function getProducts(): Product[] {
+// eslint-disable-next-line react-refresh/only-export-components
+export function getProducts(): Product[] {
     return [
         {
             id: 1,
