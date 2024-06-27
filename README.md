@@ -1,9 +1,5 @@
 # Get Started
-run `npm run dev` and visit the url in your browser.
-
-```
-npm run dev
-```
+run `npm run dev` and visit the url in your browser. run `npm test` for various tests.
 
 # Question
 
