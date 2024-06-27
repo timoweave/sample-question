@@ -1,0 +1,66 @@
+/* mobile first */
+
+.Brand-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+.ProductCard-wrapper {
+  /* // display: flex;
+  // align-items: center;
+  // flex-direction: column; */
+  display: grid;
+  place-content: center;
+  /* gap: 1rem; */
+  img {
+    height: 10rem;
+    object-fit: cover;
+  }
+}
+
+.ProductCard-button {
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  padding: 2px 0px;
+  margin: 2px 0;
+  cursor: pointer;
+
+}
+
+.ProductionCard-button-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+
+
+/* desktop */
+@media only screen and (min-width: 1200px) {
+  .App {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .ProductCard-wrapper {
+  }
+
+  .ProductCard-button {
+
+  }
+
+  .ProductionCard-button-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+}
